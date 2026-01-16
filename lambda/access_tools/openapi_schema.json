@@ -1,0 +1,105 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Access Tools API",
+    "version": "1.0.0",
+    "description": "Tools for managing IAM permissions and access"
+  },
+  "paths": {
+    "/check_iam_permissions": {
+      "post": {
+        "summary": "Check user IAM permissions",
+        "description": "Returns the IAM policies attached to a user",
+        "operationId": "check_iam_permissions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string",
+                    "description": "IAM username"
+                  }
+                },
+                "required": ["user_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User permissions"
+          }
+        }
+      }
+    },
+    "/grant_database_access": {
+      "post": {
+        "summary": "Grant database access to user",
+        "description": "Creates IAM policy to grant database access",
+        "operationId": "grant_database_access",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string",
+                    "description": "IAM username"
+                  },
+                  "db_identifier": {
+                    "type": "string",
+                    "description": "Database identifier"
+                  }
+                },
+                "required": ["user_id", "db_identifier"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Access granted"
+          }
+        }
+      }
+    },
+    "/validate_user_access": {
+      "post": {
+        "summary": "Validate if user should have access",
+        "description": "Checks if user is authorized for a resource",
+        "operationId": "validate_user_access",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string",
+                    "description": "IAM username"
+                  },
+                  "resource": {
+                    "type": "string",
+                    "description": "Resource name"
+                  }
+                },
+                "required": ["user_id", "resource"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validation result"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Infrastructure Tools API",
+    "version": "1.0.0",
+    "description": "Tools for checking AWS infrastructure status"
+  },
+  "paths": {
+    "/check_database_status": {
+      "post": {
+        "summary": "Check RDS database status",
+        "description": "Returns the current status of an RDS database instance",
+        "operationId": "check_database_status",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "db_identifier": {
+                    "type": "string",
+                    "description": "RDS database identifier (e.g., prod-db-01)"
+                  }
+                },
+                "required": ["db_identifier"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Database status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "identifier": {"type": "string"},
+                    "status": {"type": "string"},
+                    "endpoint": {"type": "string"},
+                    "engine": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/check_ec2_status": {
+      "post": {
+        "summary": "Check EC2 instance status",
+        "description": "Returns the current state of an EC2 instance",
+        "operationId": "check_ec2_status",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "instance_id": {
+                    "type": "string",
+                    "description": "EC2 instance ID (e.g., i-1234567890abcdef0)"
+                  }
+                },
+                "required": ["instance_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Instance status"
+          }
+        }
+      }
+    },
+    "/list_databases": {
+      "post": {
+        "summary": "List all RDS databases",
+        "description": "Returns a list of all RDS database instances",
+        "operationId": "list_databases",
+        "responses": {
+          "200": {
+            "description": "List of databases"
+          }
+        }
+      }
+    }
+  }
+}

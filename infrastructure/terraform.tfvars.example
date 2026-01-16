@@ -1,0 +1,3 @@
+aws_region       = "us-east-1"
+environment      = "poc"
+slack_bot_token  = "xoxb-your-slack-bot-token-here"
